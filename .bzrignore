@@ -1,0 +1,4 @@
+build
+pbfile_Prefix.pch
+pbfile.xcodeproj/*.pbxuser
+pbfile.xcodeproj/*.perspective*

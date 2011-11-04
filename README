@@ -1,0 +1,9 @@
+pbfile(1) is a simple command-line tool for MacOS X to copy references
+for the provided files to the clipboard, in the same spirit as pbcopy(1). 
+For example, performing the follwing
+
+    $ pbfile ~/.bash*
+
+and then pasting in a mail message will paste the files as attachments.
+
+Written and placed in the public domain by Brian de Alwis.
