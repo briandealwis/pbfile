@@ -26,20 +26,24 @@ int main(int argc, char *argv[])
 		//	NSString stringWithCString: *argv encoding: (NSStringEncoding)
 		// but what NSStringEncoding?
 		NSString *path = [NSString stringWithUTF8String: *argv];
-		if([path characterAtIndex:0] != '/' && [path characterAtIndex:0] != '~') {
+		path = [path stringByStandardizingPath];
+		if([path characterAtIndex:0] != '/') {
 			path = [cwd stringByAppendingPathComponent:path];
 		}
-		path = [path stringByStandardizingPath];
 		NSLog(@"Adding %@", path);
 		[fileNames addObject: path];
 	}
 	
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
+	[pb clearContents];
 	NSArray *types = [NSArray arrayWithObjects: NSFilenamesPboardType, nil];
 	[pb declareTypes:types owner:nil];
 	[pb setPropertyList:fileNames forType:NSFilenamesPboardType];
+
+	// Small sleep seems required on 10.9!?  Allow time for the pasteboard to sync up?
+	usleep(100);
 	
-    [pool drain];
-    return 0;
+	[pool drain];
+	return 0;
 }
 
